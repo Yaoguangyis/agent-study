@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+const projects = getSortedPosts(await getCollection("posts")).filter(p => p.data.kind === "project");
+---
+<Layout title="Agent 作品 | 数字书房">
+  <Header />
+  <main id="main-content" class="app-layout collection-page">
+    <p class="section-kicker">作品档案</p>
+    <h1>从一个小问题开始。</h1>
+    <p class="collection-intro">记录 Agent 的任务、设计和验证过程，也留下没有解决的部分。</p>
+    <aside class="sample-notice">以下为展示页面结构的示例档案，尚未替换为个人真实作品。</aside>
+    <ul>{projects.map(p => <Card {...p} />)}</ul>
+  </main>
+  <Footer />
+</Layout>

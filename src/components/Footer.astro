@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getRelativeLocaleUrl } from "astro:i18n";
+type Props = { noMarginTop?: boolean } & HTMLAttributes<"footer">;
+const { noMarginTop = false, class: className, ...attrs } = Astro.props;
+---
+<footer class:list={["app-layout study-footer", { "mt-auto": !noMarginTop }, className]} {...attrs}>
+  <div class="footer-inner">
+    <p>数字书房 <span> / </span> Yaoguangyis</p>
+    <nav aria-label="页脚导航">
+      <a href="https://github.com/Yaoguangyis">GitHub</a>
+      <a href={getRelativeLocaleUrl("zh", "rss.xml")}>RSS</a>
+      <a href={getRelativeLocaleUrl("zh", "tags")}>主题索引</a>
+      <a href="https://github.com/satnaing/astro-paper">基于 AstroPaper</a>
+    </nav>
+  </div>
+</footer>
+<style>
+  .footer-inner { border-top: 1px solid var(--border); padding: 24px 0; display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+  p span { margin: 0 8px; opacity: .5; }
+  nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+  @media(max-width:639px) { .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; } nav { gap: 18px; } }
+</style>
